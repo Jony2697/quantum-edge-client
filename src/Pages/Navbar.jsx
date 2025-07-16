@@ -45,7 +45,7 @@ const Navbar = () => {
                     <Link>
                         <a href="#" className="text-green-500 text-sm hover:underline font-semibold">BECOME A SELLER</a>
                     </Link>
-                    <Link to={'/login'} >
+                    <Link to={'/signIn'} >
                         <a href="#" className="text-sm hover:underline font-semibold">LOGIN</a>
                     </Link>
                     <Link to={'/registration'}>
