@@ -42,14 +42,14 @@ const Navbar = () => {
                         />
                     </div>
 
-                    <Link>
-                        <a href="#" className="text-green-500 text-sm hover:underline font-semibold">BECOME A SELLER</a>
+                    <Link href="#" className="text-green-500 text-sm hover:underline font-semibold">
+                        BECOME A SELLER
                     </Link>
-                    <Link to={'/signIn'} >
-                        <a href="#" className="text-sm hover:underline font-semibold">LOGIN</a>
+                    <Link href="#" className="text-sm hover:underline font-semibold" to={'/signIn'} >
+                        LOGIN
                     </Link>
-                    <Link to={'/registration'}>
-                        <a href="#" className="bg-green-500 text-sm px-4 rounded-full hover:bg-green-600 font-semibold py-2">Registration</a>
+                    <Link to={'/registration'} href="#" className="bg-green-500 text-sm px-4 rounded-full hover:bg-green-600 font-semibold py-2">
+                        Registration
                     </Link>
                 </div>
             </nav>

@@ -7,6 +7,35 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 
 const SignIn = () => {
+    const handleLogin=async(e)=>{
+        e.preventDefault();
+        const form=e.target;
+        const email=form.email.value;
+        const password=form.password.value;
+
+
+        try {
+      const res = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log('Login successful:', data);
+        // যদি token থাকে, সেটাকে localStorage-এ রাখো, তারপর redirect দাও
+        // localStorage.setItem('token', data.token);
+        // navigate('/jobs'); // login success হলে job listings page এ redirect করো
+      } else {
+        alert(data.detail || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login error. Try again.');
+    }
+    }
     return (
         <div>
             <div className='bg-[#071400] max-w-6xl mx-auto rounded-2xl'>
@@ -20,7 +49,7 @@ const SignIn = () => {
                             />
                         </div>
                         <div className="card w-full max-w-sm shrink-0 shadow-2xl ">
-                            <div className="card-body ">
+                            <form onSubmit={handleLogin} className="card-body ">
                                 <fieldset className="fieldset text-white space-y-4">
                                     <h2 className='text-3xl font-semibold text-center'>Login your account</h2>
                                     <p className='text-center font-semibold'>Don't have an account?<Link to={'/registration'} className='text-green-700'> Sign Up</Link></p>
@@ -29,6 +58,7 @@ const SignIn = () => {
                                         <FaEnvelope size={20} className="text-gray-400" />
                                         <input
                                             type="email"
+                                            name='email'
                                             placeholder="Email address"
                                             className="bg-transparent flex-1 px-2 py-2 text-white focus:outline-none rounded-full"
                                         />
@@ -38,6 +68,7 @@ const SignIn = () => {
                                         <FaLock size={20} className="text-gray-400" />
                                         <input
                                             type="password"
+                                            name='password'
                                             placeholder="Password"
                                             className="bg-transparent flex-1 px-2 py-2 text-white focus:outline-none rounded-full"
                                         />
@@ -69,7 +100,7 @@ const SignIn = () => {
                                     </div>
                                 </fieldset>
 
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

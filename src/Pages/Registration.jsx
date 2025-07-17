@@ -4,17 +4,47 @@ import loginImg from '../assets/login img.jpg'
 import { FaApple, FaEnvelope, FaFacebook, FaLock } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { LuEye } from 'react-icons/lu';
+// import axios from 'axios';
+// import api from '../api/api';
 
 
 const Registration = () => {
-  const handleRegistration=e=>{
+  // const navigate = useNavigate();
+  const handleRegistration = async (e) => {
     e.preventDefault();
-    const form =e.target;
-    const email=form.email.value;
-    const password=form.password.value;
-    const confirmPass=form.confirmPass.value;
-    console.log(email,password,confirmPass);
-    
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPass = form.confirmPass.value;
+
+    console.log(email, password, confirmPass);
+
+    //Validate pass 
+    if (!email || !password || !confirmPass) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPass) {
+      alert('Passwords do not match');
+      return;
+    }
+
+
+    // Instead of calling the actual API, call your proxy server:
+    fetch('http://localhost:3000/api/registration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => console.log('Registered:', data))
+      .catch(err => console.error(err));
+
+
 
   }
 
@@ -65,7 +95,6 @@ const Registration = () => {
                   />
                   <LuEye size={20} className="text-gray-400 ml-2" />
                 </div>
-                {/* <div><a className="link link-hover">Forgot password?</a></div> */}
                 <button type='submit' className="btn btn-neutral bg-green-600 text-white rounded-full">Create Account</button>
 
                 {/* divider */}
