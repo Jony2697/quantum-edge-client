@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader:()=>fetch('http://localhost:3000/api/jobs'),
+        loader:()=>fetch('https://quantum-edge-server.vercel.app/api/jobs'),
         Component: Home
       },
       {

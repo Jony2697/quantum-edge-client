@@ -2,39 +2,46 @@ import React from 'react';
 import loginImg from '../assets/login img.jpg'
 import { FaApple, FaEnvelope, FaFacebook, FaLock } from 'react-icons/fa';
 import { LuEye } from 'react-icons/lu';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaXTwitter } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
 
 
 const SignIn = () => {
-    const handleLogin=async(e)=>{
+    const navigate=useNavigate();
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const form=e.target;
-        const email=form.email.value;
-        const password=form.password.value;
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
 
         try {
-      const res = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+            const res = await fetch('https://quantum-edge-server.vercel.app/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
 
-      const data = await res.json();
+            const data = await res.json();
 
-      if (res.ok) {
-        console.log('Login successful:', data);
-        // যদি token থাকে, সেটাকে localStorage-এ রাখো, তারপর redirect দাও
-        // localStorage.setItem('token', data.token);
-        // navigate('/jobs'); // login success হলে job listings page এ redirect করো
-      } else {
-        alert(data.detail || 'Login failed');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      alert('Login error. Try again.');
-    }
+            if (res.ok) {
+                console.log('Login successful:', data);
+                Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "Login Successfully",
+                          showConfirmButton: false,
+                          timer: 1500
+                        });
+                        navigate('/')
+            } else {
+                alert(data.detail || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Login error. Try again.');
+        }
     }
     return (
         <div>

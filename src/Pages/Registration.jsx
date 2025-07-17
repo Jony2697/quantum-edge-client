@@ -1,25 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import loginImg from '../assets/login img.jpg'
 import { FaApple, FaEnvelope, FaFacebook, FaLock } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { LuEye } from 'react-icons/lu';
-// import axios from 'axios';
-// import api from '../api/api';
+import Swal from 'sweetalert2';
+import { MdDriveFileRenameOutline } from "react-icons/md";
+import { IoPersonCircleOutline } from "react-icons/io5";
+
 
 
 const Registration = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleRegistration = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
+    const userName = form.userName.value;
+    const first_name = form.firstName.value;
+
     const password = form.password.value;
     const confirmPass = form.confirmPass.value;
 
-    console.log(email, password, confirmPass);
+    console.log(email, password, confirmPass, userName, first_name);
 
-    //Validate pass 
+    // Validate pass 
     if (!email || !password || !confirmPass) {
       alert('Please fill in all fields');
       return;
@@ -30,18 +35,28 @@ const Registration = () => {
       return;
     }
 
-
-    // Instead of calling the actual API, call your proxy server:
-    fetch('http://localhost:3000/api/registration', {
+    fetch('https://quantum-edge-server.vercel.app/api/registration', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: email,
+        username: userName,
+        first_name: first_name,
         password: password,
       }),
     })
       .then(res => res.json())
-      .then(data => console.log('Registered:', data))
+      .then(data => {
+        console.log('Registered:', data);
+        navigate('/');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Registration Successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
       .catch(err => console.error(err));
 
 
@@ -71,6 +86,24 @@ const Registration = () => {
                     type="email"
                     name='email'
                     placeholder="Email address"
+                    className="bg-transparent flex-1 px-2 py-2 text-white focus:outline-none rounded-full"
+                  />
+                </div>
+                <div className="flex items-center bg-[#071400] text-white border border-gray-600 focus-within:border-green-500 rounded-full px-4">
+                  <IoPersonCircleOutline size={20} className="text-gray-400" />
+                  <input
+                    type="text"
+                    name='userName'
+                    placeholder="Username"
+                    className="bg-transparent flex-1 px-2 py-2 text-white focus:outline-none rounded-full"
+                  />
+                </div>
+                <div className="flex items-center bg-[#071400] text-white border border-gray-600 focus-within:border-green-500 rounded-full px-4">
+                  <MdDriveFileRenameOutline size={20} className="text-gray-400" />
+                  <input
+                    type="text"
+                    name='firstName'
+                    placeholder="First name"
                     className="bg-transparent flex-1 px-2 py-2 text-white focus:outline-none rounded-full"
                   />
                 </div>

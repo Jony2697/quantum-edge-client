@@ -7,7 +7,7 @@ const Hero = () => {
     return (
         <div >
 
-            
+
             <div className="flex-1 mx-8 flex items-center space-x-2 h-60 ">
                 <div className="flex border border-r-gray-700 border-l-amber-600  border-t-green-500 border-b-green-500 bg-[#66666614] rounded-lg overflow-hidden w-full max-w-xl p-2 space-x-4">
                     <input
@@ -28,9 +28,9 @@ const Hero = () => {
                     Advanced search
                 </button>
 
-                 <img className='ml-60 mt-20' src={star} alt="" />
+                <img className='ml-60 mt-20' src={star} alt="" />
             </div>
-           
+
         </div>
     );
 };

@@ -7,7 +7,7 @@ import { useLoaderData } from 'react-router';
 
 const Home = () => {
     const allJobs=useLoaderData();
-    console.log(allJobs.data);
+   
     
     
     return (
